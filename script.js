@@ -459,6 +459,8 @@ const baseVertexShader = compileShader(gl.VERTEX_SHADER, `
     }
 `);
 
+
+//模糊效果的顶点着色器。
 const blurVertexShader = compileShader(gl.VERTEX_SHADER, `
     precision highp float;
 
@@ -477,6 +479,7 @@ const blurVertexShader = compileShader(gl.VERTEX_SHADER, `
     }
 `);
 
+//模糊效果的片段着色器。
 const blurShader = compileShader(gl.FRAGMENT_SHADER, `
     precision mediump float;
     precision mediump sampler2D;
@@ -494,6 +497,7 @@ const blurShader = compileShader(gl.FRAGMENT_SHADER, `
     }
 `);
 
+//复制操作的着色器。
 const copyShader = compileShader(gl.FRAGMENT_SHADER, `
     precision mediump float;
     precision mediump sampler2D;
@@ -506,6 +510,7 @@ const copyShader = compileShader(gl.FRAGMENT_SHADER, `
     }
 `);
 
+//清除操作的着色器。
 const clearShader = compileShader(gl.FRAGMENT_SHADER, `
     precision mediump float;
     precision mediump sampler2D;
@@ -519,6 +524,7 @@ const clearShader = compileShader(gl.FRAGMENT_SHADER, `
     }
 `);
 
+//颜色应用的着色器。
 const colorShader = compileShader(gl.FRAGMENT_SHADER, `
     precision mediump float;
 
@@ -529,6 +535,8 @@ const colorShader = compileShader(gl.FRAGMENT_SHADER, `
     }
 `);
 
+
+//棋盘图案的着色器。
 const checkerboardShader = compileShader(gl.FRAGMENT_SHADER, `
     precision highp float;
     precision highp sampler2D;
@@ -546,7 +554,7 @@ const checkerboardShader = compileShader(gl.FRAGMENT_SHADER, `
         gl_FragColor = vec4(vec3(v), 1.0);
     }
 `);
-
+//显示操作的着色器源代码。
 const displayShaderSource = `
     precision highp float;
     precision highp sampler2D;
@@ -611,7 +619,7 @@ const displayShaderSource = `
         gl_FragColor = vec4(c, a);
     }
 `;
-
+//bloomPrefilterShader
 const bloomPrefilterShader = compileShader(gl.FRAGMENT_SHADER, `
     precision mediump float;
     precision mediump sampler2D;
@@ -631,6 +639,7 @@ const bloomPrefilterShader = compileShader(gl.FRAGMENT_SHADER, `
     }
 `);
 
+//光晕效果模糊的着色器。
 const bloomBlurShader = compileShader(gl.FRAGMENT_SHADER, `
     precision mediump float;
     precision mediump sampler2D;
@@ -652,6 +661,7 @@ const bloomBlurShader = compileShader(gl.FRAGMENT_SHADER, `
     }
 `);
 
+//光晕效果最终的着色器。
 const bloomFinalShader = compileShader(gl.FRAGMENT_SHADER, `
     precision mediump float;
     precision mediump sampler2D;
@@ -674,6 +684,7 @@ const bloomFinalShader = compileShader(gl.FRAGMENT_SHADER, `
     }
 `);
 
+//阳光效果的遮罩着色器。
 const sunraysMaskShader = compileShader(gl.FRAGMENT_SHADER, `
     precision highp float;
     precision highp sampler2D;
@@ -689,6 +700,7 @@ const sunraysMaskShader = compileShader(gl.FRAGMENT_SHADER, `
     }
 `);
 
+//阳光效果的着色器。
 const sunraysShader = compileShader(gl.FRAGMENT_SHADER, `
     precision highp float;
     precision highp sampler2D;
@@ -724,6 +736,7 @@ const sunraysShader = compileShader(gl.FRAGMENT_SHADER, `
     }
 `);
 
+//溅射效果的着色器。
 const splatShader = compileShader(gl.FRAGMENT_SHADER, `
     precision highp float;
     precision highp sampler2D;
@@ -744,6 +757,7 @@ const splatShader = compileShader(gl.FRAGMENT_SHADER, `
     }
 `);
 
+//对流效果的着色器。
 const advectionShader = compileShader(gl.FRAGMENT_SHADER, `
     precision highp float;
     precision highp sampler2D;
@@ -784,6 +798,7 @@ const advectionShader = compileShader(gl.FRAGMENT_SHADER, `
     ext.supportLinearFiltering ? null : ['MANUAL_FILTERING']
 );
 
+//发散效果的着色器。
 const divergenceShader = compileShader(gl.FRAGMENT_SHADER, `
     precision mediump float;
     precision mediump sampler2D;
@@ -812,6 +827,8 @@ const divergenceShader = compileShader(gl.FRAGMENT_SHADER, `
     }
 `);
 
+
+//卷曲效果的着色器。
 const curlShader = compileShader(gl.FRAGMENT_SHADER, `
     precision mediump float;
     precision mediump sampler2D;
@@ -833,6 +850,7 @@ const curlShader = compileShader(gl.FRAGMENT_SHADER, `
     }
 `);
 
+//涡旋效果的着色器。
 const vorticityShader = compileShader(gl.FRAGMENT_SHADER, `
     precision highp float;
     precision highp sampler2D;
@@ -866,6 +884,7 @@ const vorticityShader = compileShader(gl.FRAGMENT_SHADER, `
     }
 `);
 
+//压力计算的着色器。
 const pressureShader = compileShader(gl.FRAGMENT_SHADER, `
     precision mediump float;
     precision mediump sampler2D;
@@ -890,6 +909,7 @@ const pressureShader = compileShader(gl.FRAGMENT_SHADER, `
     }
 `);
 
+//梯度减法操作的着色器。
 const gradientSubtractShader = compileShader(gl.FRAGMENT_SHADER, `
     precision mediump float;
     precision mediump sampler2D;
@@ -960,27 +980,41 @@ let sunraysTemp;
 
 let ditheringTexture = createTextureAsync('LDR_LLL1_0.png');
 
+//视觉效果
 const blurProgram            = new Program(blurVertexShader, blurShader);
 const copyProgram            = new Program(baseVertexShader, copyShader);
 const clearProgram           = new Program(baseVertexShader, clearShader);
 const colorProgram           = new Program(baseVertexShader, colorShader);
 const checkerboardProgram    = new Program(baseVertexShader, checkerboardShader);
+
+//视觉效果
 const bloomPrefilterProgram  = new Program(baseVertexShader, bloomPrefilterShader);
 const bloomBlurProgram       = new Program(baseVertexShader, bloomBlurShader);
 const bloomFinalProgram      = new Program(baseVertexShader, bloomFinalShader);
+
+
 const sunraysMaskProgram     = new Program(baseVertexShader, sunraysMaskShader);
 const sunraysProgram         = new Program(baseVertexShader, sunraysShader);
+//用户输入  将用户输入（如鼠标点击）转换为流体仿真中的溅射效果。
 const splatProgram           = new Program(baseVertexShader, splatShader);
 // 速度场更新函数
+//用于模拟流体的对流效果，根据速度场移动流体
 const advectionProgram       = new Program(baseVertexShader, advectionShader);
+//  - **速度场处理**：
+//计算速度场的发散。
 const divergenceProgram      = new Program(baseVertexShader, divergenceShader);
+//计算速度场的卷曲
 const curlProgram            = new Program(baseVertexShader, curlShader);
+//增强流体的涡旋效果
 const vorticityProgram       = new Program(baseVertexShader, vorticityShader);
+//  - **压力求解 用于求解压力场，确保流体仿真符合不可压缩流体的条件。**：
 const pressureProgram        = new Program(baseVertexShader, pressureShader);
 const gradienSubtractProgram = new Program(baseVertexShader, gradientSubtractShader);
 
+//**渲染输出**：
 const displayMaterial = new Material(baseVertexShader, displayShaderSource);
 
+//初始化帧缓冲区。
 function initFramebuffers () {
     let simRes = getResolution(config.SIM_RESOLUTION);
     let dyeRes = getResolution(config.DYE_RESOLUTION);
@@ -1011,6 +1045,7 @@ function initFramebuffers () {
     initSunraysFramebuffers();
 }
 
+//初始化光晕效果帧缓冲区。
 function initBloomFramebuffers () {
     let res = getResolution(config.BLOOM_RESOLUTION);
 
@@ -1032,7 +1067,7 @@ function initBloomFramebuffers () {
         bloomFramebuffers.push(fbo);
     }
 }
-
+//初始化阳光效果帧缓冲区。
 function initSunraysFramebuffers () {
     let res = getResolution(config.SUNRAYS_RESOLUTION);
 
@@ -1043,7 +1078,7 @@ function initSunraysFramebuffers () {
     sunrays     = createFBO(res.width, res.height, r.internalFormat, r.format, texType, filtering);
     sunraysTemp = createFBO(res.width, res.height, r.internalFormat, r.format, texType, filtering);
 }
-
+//创建帧缓冲区对象。
 function createFBO (w, h, internalFormat, format, type, param) {
     gl.activeTexture(gl.TEXTURE0);
     let texture = gl.createTexture();
@@ -1077,7 +1112,7 @@ function createFBO (w, h, internalFormat, format, type, param) {
         }
     };
 }
-
+//创建双帧缓冲区对象。
 function createDoubleFBO (w, h, internalFormat, format, type, param) {
     let fbo1 = createFBO(w, h, internalFormat, format, type, param);
     let fbo2 = createFBO(w, h, internalFormat, format, type, param);
@@ -1106,7 +1141,7 @@ function createDoubleFBO (w, h, internalFormat, format, type, param) {
         }
     }
 }
-
+//调整帧缓冲区对象大小。
 function resizeFBO (target, w, h, internalFormat, format, type, param) {
     let newFBO = createFBO(w, h, internalFormat, format, type, param);
     copyProgram.bind();
@@ -1115,6 +1150,7 @@ function resizeFBO (target, w, h, internalFormat, format, type, param) {
     return newFBO;
 }
 
+//调整双帧缓冲区对象大小。
 function resizeDoubleFBO (target, w, h, internalFormat, format, type, param) {
     if (target.width == w && target.height == h)
         return target;
@@ -1126,7 +1162,7 @@ function resizeDoubleFBO (target, w, h, internalFormat, format, type, param) {
     target.texelSizeY = 1.0 / h;
     return target;
 }
-
+//异步创建纹理。
 function createTextureAsync (url) {
     let texture = gl.createTexture();
     gl.bindTexture(gl.TEXTURE_2D, texture);
@@ -1229,7 +1265,7 @@ function applyInputs () {
         }
     });
 }
-
+// 执行仿真步骤
 function step (dt) {
     gl.disable(gl.BLEND);
 
@@ -1295,6 +1331,7 @@ function step (dt) {
     dye.swap();
 }
 
+// 渲染到目标。
 function render (target) {
     if (config.BLOOM)
         applyBloom(dye.read, bloom);
@@ -1348,7 +1385,7 @@ function drawDisplay (target) {
         gl.uniform1i(displayMaterial.uniforms.uSunrays, sunrays.attach(3));
     blit(target);
 }
-
+//应用光晕效果。
 function applyBloom (source, destination) {
     if (bloomFramebuffers.length < 2)
         return;
@@ -1394,7 +1431,7 @@ function applyBloom (source, destination) {
     gl.uniform1f(bloomFinalProgram.uniforms.intensity, config.BLOOM_INTENSITY);
     blit(destination);
 }
-
+//应用阳光效果。
 function applySunrays (source, mask, destination) {
     gl.disable(gl.BLEND);
     sunraysMaskProgram.bind();
@@ -1406,7 +1443,7 @@ function applySunrays (source, mask, destination) {
     gl.uniform1i(sunraysProgram.uniforms.uTexture, mask.attach(0));
     blit(destination);
 }
-
+//模糊处理。
 function blur (target, temp, iterations) {
     blurProgram.bind();
     for (let i = 0; i < iterations; i++) {
@@ -1419,13 +1456,13 @@ function blur (target, temp, iterations) {
         blit(target);
     }
 }
-
+// 溅射指针位置
 function splatPointer (pointer) {
     let dx = pointer.deltaX * config.SPLAT_FORCE;
     let dy = pointer.deltaY * config.SPLAT_FORCE;
     splat(pointer.texcoordX, pointer.texcoordY, dx, dy, pointer.color);
 }
-
+//执行多次溅射。
 function multipleSplats (amount) {
     for (let i = 0; i < amount; i++) {
         const color = generateColor();
@@ -1439,7 +1476,7 @@ function multipleSplats (amount) {
         splat(x, y, dx, dy, color);
     }
 }
-
+//执行溅射。
 function splat (x, y, dx, dy, color) {
     splatProgram.bind();
     gl.uniform1i(splatProgram.uniforms.uTarget, velocity.read.attach(0));
@@ -1455,7 +1492,7 @@ function splat (x, y, dx, dy, color) {
     blit(dye.write);
     dye.swap();
 }
-
+//校正半径。
 function correctRadius (radius) {
     let aspectRatio = canvas.width / canvas.height;
     if (aspectRatio > 1)
@@ -1524,7 +1561,7 @@ window.addEventListener('keydown', e => {
     if (e.key === ' ')
         splatStack.push(parseInt(Math.random() * 20) + 5);
 });
-
+// 更新指针按下数据
 function updatePointerDownData (pointer, id, posX, posY) {
     pointer.id = id;
     pointer.down = true;
@@ -1551,7 +1588,7 @@ function updatePointerMoveData (pointer, posX, posY) {
 function updatePointerUpData (pointer) {
     pointer.down = false;
 }
-
+//校正 X 轴增量
 function correctDeltaX (delta) {
     let aspectRatio = canvas.width / canvas.height;
     if (aspectRatio < 1) delta *= aspectRatio;
@@ -1610,7 +1647,7 @@ function wrap (value, min, max) {
     if (range == 0) return min;
     return (value - min) % range + min;
 }
-
+// /获取分辨率
 function getResolution (resolution) {
     let aspectRatio = gl.drawingBufferWidth / gl.drawingBufferHeight;
     if (aspectRatio < 1)
@@ -1624,19 +1661,19 @@ function getResolution (resolution) {
     else
         return { width: min, height: max };
 }
-
+//获取纹理缩放。
 function getTextureScale (texture, width, height) {
     return {
         x: width / texture.width,
         y: height / texture.height
     };
 }
-
+// 按像素比例缩放
 function scaleByPixelRatio (input) {
     let pixelRatio = window.devicePixelRatio || 1;
     return Math.floor(input * pixelRatio);
 }
-
+// 计算字符串的哈希码
 function hashCode (s) {
     if (s.length == 0) return 0;
     let hash = 0;
