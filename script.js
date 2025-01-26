@@ -437,6 +437,7 @@ function addKeywords (source, keywords) {
     return keywordsString + source;
 }
 
+// 基础顶点着色器。
 const baseVertexShader = compileShader(gl.VERTEX_SHADER, `
     precision highp float;
 
@@ -970,6 +971,7 @@ const bloomFinalProgram      = new Program(baseVertexShader, bloomFinalShader);
 const sunraysMaskProgram     = new Program(baseVertexShader, sunraysMaskShader);
 const sunraysProgram         = new Program(baseVertexShader, sunraysShader);
 const splatProgram           = new Program(baseVertexShader, splatShader);
+// 速度场更新函数
 const advectionProgram       = new Program(baseVertexShader, advectionShader);
 const divergenceProgram      = new Program(baseVertexShader, divergenceShader);
 const curlProgram            = new Program(baseVertexShader, curlShader);
